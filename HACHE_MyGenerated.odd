@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:sch="http://purl.oclc.org.dsdl/schematron" 
+   xml:lang="en">
+   
+   <teiHeader>
+      <fileDesc>
+         <titleStmt>
+            <title type="short">Customisation schema for epistolary works</title>
+            <title>Customisation schema for the encoding of three epistolary works</title>
+            <author>Raphaël Hache</author>
+         </titleStmt> 
+         <publicationStmt>
+            <p>Published from the TEI-XML final assignment of the Encoding Project Portfolio at École nationale des chartes</p>
+         </publicationStmt>
+         <notesStmt>
+            <note type="project_purposes">
+               <p>This projects aims at comparing three texts of the same type and length which come from three french epistolary
+               works written in the second half of the modern era.</p>
+               <p>I decided to work on this type of text because I am very interested in this kind of literature, which allows
+                  me to be immersed in a historical era that I really appreciate. Furthermore, I consider that letters from these
+                  epistolary works are quite adapted to encoding, because it includes different places and points of view, 
+                  a complex plot with lots of characters and descriptions, and all this deserves to be clarified and analyzed.</p>
+               <p>Therefore, this project consists in a particular attention given to the names of people and groups, which 
+                  are numerous and can easily be confused. The project also focuses on places where letters are written and sent,
+                  and places evoked in the texts, in order to locate spatially the action.</p>
+               <p>My three samples are the followings:</p>
+               <list>
+                  <item>Letter XXX of Persian Letters, written by Montesquieu in 1721. 
+                     In this letter, Rica, a persian man who lives in Paris, describes the reaction of the parisians who meet him.</item>
+                  <item>Letter CLXXV of the French novel Les Liaisons dangereuses, written by Laclos and published in 1782, 
+                     which deals with love stories, rivalry and manipulation in the XVIIIth century's french nobility.</item>
+                  <item>Letter CXXVIII. — From Madame de Sévigné to the Count of Bussy Rabutin. This text belongs to the corpus of letters written
+                     by Madame de Sévigné to her family and close friends between 1648 and 1696. Even if this corpus, contrary to the two others, 
+                     is not fictive, it has been edited and is now studied as a literary work. In this letter, dedicated to her cousin 
+                     the count of Bussy Rabutin, Madame de Sévigné tells a story that happened between members of their family.</item>
+               </list>
+            </note>
+            <note type="Three_custom_rules">
+               <list>
+                  <item>First rule : The <att>ident</att> attribute on the <gi>language</gi> element aims at characterizing a language or a 
+                     sublanguage used within a text. All the samples encoded in this project are written in french, so the <att>ident</att> 
+                     attribute must have the value "fr". 
+                  </item>
+                  <item>Second rule : the element <gi>dateline</gi> contains a description of the place, date or time of the publication of a letter. 
+                     This project aims at respecting the format of a letter. Consequently, <gi>dateline</gi> must contain a sequence of 
+                     two children elements : <gi>name</gi> and <gi>date</gi>, that must always be in the same order. 
+                  </item>
+                  <item>Third rule (schematron) : the element <gi>location</gi> defines the location of a place. 
+                     This project aims at associating all the places names mentioned in the samples with its geographical coordinates.  
+                     That is why each <gi>location</gi> element, containing the coordinates in a <gi>geo</gi> tag, 
+                     needs to have a <gi>placeName</gi> element among its preceding-siblings.</item>
+               </list>
+            </note>
+         </notesStmt>
+         <sourceDesc>
+            <p>Derived from <ref target="https://www.tei-c.org/Vault/P5/current/xml/tei/odd/p5subset.xml">base odd</ref> after an analysis of 3 files in ./</p>
+         </sourceDesc>
+      </fileDesc>
+   </teiHeader>       
+   <text>
+      <body>
+         <head>Customisation schema for the encoding of three epistolary works</head>
+         <p>This TEI ODD defines a TEI customization for the three samples contained in the project. 
+            It includes five elements from the header module : 
+            <list> 
+               <item><gi>teiHeader</gi> from the "header" module to store required metadata</item>
+               <item><gi>fileDesc</gi> from the "header" module to record information about this file</item>
+               <item><gi>titleStmt</gi> from the "header" module to record information about the title</item>
+               <item><gi>publicationStmt</gi> from the "header" module to detail how it is published</item>
+               <item><gi>sourceDesc</gi> from the "header" module to record where it is derived from</item>
+            </list>
+            It also contains the entire "core" module and the entire "tei" module. It also includes 
+            the "namespace" module and elements from the "textstructure" module, in which we use the element 
+            <gi>div</gi> with the attribute <att>type</att>. 
+         </p> 
+         
+         <schemaSpec ident="oddbyexample" start="TEI ">
+            <moduleRef key="tei"/>
+            <!--Checking module textcrit-->
+            <classRef key="att.textCritical"/>
+            <classRef key="model.rdgLike"/>
+            <classRef key="model.rdgPart"/>
+            <classSpec ident="att.textCritical" type="atts" mode="change">
+               <attList>
+                  <attDef ident="type" mode="delete"/>
+                  <attDef ident="cause" mode="delete"/>
+                  <attDef ident="varSeq" mode="delete"/>
+                  <attDef ident="require" mode="delete"/>
+               </attList>
+            </classSpec>
+            <!--Checking module msdescription-->
+            <classRef key="model.physDescPart"/>
+            <!--Checking module namesdates-->
+            <classRef key="model.persNamePart"/>
+            <moduleRef key="namesdates"
+                       include="persName roleName placeName region geo listPerson listPlace location person personGrp place"/>
+            <elementSpec ident="persName" mode="change">
+               <attList>
+                  <attDef ident="type" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <elementSpec ident="roleName" mode="change">
+               <attList>
+                  <attDef ident="ref" mode="delete"/>
+                  <attDef ident="type" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <elementSpec ident="placeName" mode="change">
+               <attList>
+                  <attDef ident="type" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <elementSpec ident="region" mode="change">
+               <attList>
+                  <attDef ident="ref" mode="delete"/>
+                  <attDef ident="type" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <elementSpec ident="listPerson" mode="change">
+               <attList>
+                  <attDef ident="type" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <elementSpec ident="listPlace" mode="change">
+               <attList>
+                  <attDef ident="type" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <!-- This is the third rule -->
+            <elementSpec ident="location" mode="change"> 
+               <desc>[Note Change!] Defines the location of a place. This project aims at associating places names with geographical coordinates 
+                  That is why each <gi>location</gi> element needs to have a <gi>placeName</gi> element among its preceding-siblings. 
+               </desc>
+               <constraintSpec ident="Location_placeName" scheme="isoschematron">
+                  <constraint>
+                     <sch:rule context="tei:location">
+                        <sch:assert test="preceding-sibling::tei:placeName" role="error">
+                           Each "location" element needs to have a "placeName" element among its preceding-siblings. 
+                        </sch:assert> 
+                     </sch:rule>
+                  </constraint>
+               </constraintSpec>
+               <attList>
+                  <attDef ident="type" mode="delete"/>
+               </attList>
+               <exemplum>
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                     <place xml:id="Mal_001">
+                        <placeName>Malte</placeName>
+                        <location>
+                           <geo>35°53'N, 14°27'E</geo>
+                        </location>
+                        <idno type="wikidata">Q3013354</idno>
+                     </place>
+                  </egXML>
+               </exemplum>
+            </elementSpec>
+            <elementSpec ident="person" mode="change">
+               <attList>
+                  <attDef ident="role" mode="delete"/>
+                  <attDef ident="sex" mode="delete"/>
+                  <attDef ident="gender" mode="delete"/>
+                  <attDef ident="age" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <elementSpec ident="personGrp" mode="change">
+               <attList>
+                  <attDef ident="role" mode="delete"/>
+                  <attDef ident="sex" mode="delete"/>
+                  <attDef ident="gender" mode="delete"/>
+                  <attDef ident="age" mode="delete"/>
+                  <attDef ident="size" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <elementSpec ident="place" mode="change">
+               <attList>
+                  <attDef ident="type" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <!--Checking module dictionaries-->
+            <classRef key="att.lexicographic"/>
+            <classRef key="model.entryLike"/>
+            <classRef key="model.formPart"/>
+            <classRef key="model.gramPart"/>
+            <classRef key="model.lexicalRefinement"/>
+            <classRef key="model.morphLike"/>
+            <classRef key="model.ptrLike.form"/>
+            <classSpec ident="att.lexicographic" type="atts" mode="change">
+               <attList>
+                  <attDef ident="expand" mode="delete"/>
+                  <attDef ident="split" mode="delete"/>
+                  <attDef ident="value" mode="delete"/>
+                  <attDef ident="location" mode="delete"/>
+                  <attDef ident="mergedIn" mode="delete"/>
+                  <attDef ident="opt" mode="delete"/>
+               </attList>
+            </classSpec>
+            <!--Checking module tagdocs-->
+            <classRef key="att.combinable"/>
+            <classRef key="att.identified"/>
+            <classRef key="model.contentPart"/>
+            <classSpec ident="att.combinable" type="atts" mode="change">
+               <attList>
+                  <attDef ident="mode" mode="delete"/>
+               </attList>
+            </classSpec>
+            <classSpec ident="att.identified" type="atts" mode="change">
+               <attList>
+                  <attDef ident="ident" mode="delete"/>
+                  <attDef ident="predeclare" mode="delete"/>
+                  <attDef ident="module" mode="delete"/>
+               </attList>
+            </classSpec>
+            <classSpec ident="att.canonical" type="atts" mode="change">
+               <attList>
+                  <attDef ident="key" mode="delete"/>
+               </attList>
+            </classSpec>
+            <classSpec ident="att.typed" type="atts" mode="change">
+               <attList>
+                  <attDef ident="subtype" mode="delete"/>
+               </attList>
+            </classSpec>
+            <classSpec ident="att.ascribed.directed" type="atts" mode="change">
+               <attList>
+                  <attDef ident="toWhom" mode="delete"/>
+               </attList>
+            </classSpec>
+            <classSpec ident="att.datable" type="atts" mode="change">
+               <attList>
+                  <attDef ident="period" mode="delete"/>
+               </attList>
+            </classSpec>
+            <classSpec ident="att.dimensions" type="atts" mode="change">
+               <attList>
+                  <attDef ident="unit" mode="delete"/>
+                  <attDef ident="quantity" mode="delete"/>
+                  <attDef ident="extent" mode="delete"/>
+                  <attDef ident="precision" mode="delete"/>
+                  <attDef ident="scope" mode="delete"/>
+               </attList>
+            </classSpec>
+            <classSpec ident="att.divLike" type="atts" mode="change">
+               <attList>
+                  <attDef ident="org" mode="delete"/>
+                  <attDef ident="sample" mode="delete"/>
+               </attList>
+            </classSpec>
+            <classSpec ident="att.handFeatures" type="atts" mode="change">
+               <attList>
+                  <attDef ident="scribe" mode="delete"/>
+                  <attDef ident="scribeRef" mode="delete"/>
+                  <attDef ident="script" mode="delete"/>
+                  <attDef ident="scriptRef" mode="delete"/>
+                  <attDef ident="medium" mode="delete"/>
+               </attList>
+            </classSpec>
+            <classSpec ident="att.media" type="atts" mode="change">
+               <attList>
+                  <attDef ident="width" mode="delete"/>
+                  <attDef ident="height" mode="delete"/>
+                  <attDef ident="scale" mode="delete"/>
+               </attList>
+            </classSpec>
+            <classSpec ident="att.naming" type="atts" mode="change">
+               <attList>
+                  <attDef ident="role" mode="delete"/>
+                  <attDef ident="nymRef" mode="delete"/>
+               </attList>
+            </classSpec>
+            <classSpec ident="att.pointing.group" type="atts" mode="change">
+               <attList>
+                  <attDef ident="domains" mode="delete"/>
+                  <attDef ident="targFunc" mode="delete"/>
+               </attList>
+            </classSpec>
+            <classSpec ident="att.segLike" type="atts" mode="change">
+               <attList>
+                  <attDef ident="function" mode="delete"/>
+               </attList>
+            </classSpec>
+            <classSpec ident="att.transcriptional" type="atts" mode="change">
+               <attList>
+                  <attDef ident="status" mode="delete"/>
+                  <attDef ident="cause" mode="delete"/>
+                  <attDef ident="seq" mode="delete"/>
+               </attList>
+            </classSpec>
+            <classSpec ident="att.damaged" type="atts" mode="change">
+               <attList>
+                  <attDef ident="agent" mode="delete"/>
+                  <attDef ident="degree" mode="delete"/>
+                  <attDef ident="group" mode="delete"/>
+               </attList>
+            </classSpec>
+            <classSpec ident="att.timed" type="atts" mode="change">
+               <attList>
+                  <attDef ident="start" mode="delete"/>
+                  <attDef ident="end" mode="delete"/>
+               </attList>
+            </classSpec>
+            <classSpec ident="att.personal" type="atts" mode="change">
+               <attList>
+                  <attDef ident="full" mode="delete"/>
+                  <attDef ident="sort" mode="delete"/>
+               </attList>
+            </classSpec>
+            <!--Checking module core-->
+            <moduleRef key="core"
+                       include="p name date pb monogr author editor title imprint publisher pubPlace biblStruct"/>
+            <elementSpec ident="name" mode="change">
+               <attList>
+                  <attDef ident="ref" mode="delete"/>
+                  <attDef ident="type" mode="change">
+                     <valList mode="add" type="closed">
+                        <valItem ident="place"/>
+                     </valList>
+                  </attDef>
+               </attList>
+            </elementSpec>
+            <elementSpec ident="date" mode="change">
+               <attList>
+                  <attDef ident="ref" mode="delete"/>
+                  <attDef ident="type" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <elementSpec ident="pb" mode="change">
+               <attList>
+                  <attDef ident="type" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <elementSpec ident="author" mode="change">
+               <attList>
+                  <attDef ident="ref" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <elementSpec ident="editor" mode="change">
+               <attList>
+                  <attDef ident="ref" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <elementSpec ident="title" mode="change">
+               <attList>
+                  <attDef ident="level" mode="delete"/>
+                  <attDef ident="type" mode="delete"/>
+                  <attDef ident="ref" mode="delete"/>
+                  <attDef ident="type" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <elementSpec ident="publisher" mode="change">
+               <attList>
+                  <attDef ident="ref" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <elementSpec ident="pubPlace" mode="change">
+               <attList>
+                  <attDef ident="ref" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <elementSpec ident="biblStruct" mode="change">
+               <attList>
+                  <attDef ident="ref" mode="delete"/>
+                  <attDef ident="type" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <!--Checking module figures-->
+            <!--Checking module header-->
+            <moduleRef key="header"
+                       include="teiHeader fileDesc titleStmt publicationStmt distributor idno sourceDesc profileDesc creation langUsage language"/>
+            <elementSpec ident="distributor" mode="change">
+               <attList>
+                  <attDef ident="ref" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <elementSpec ident="idno" mode="change">
+               <attList>
+                  <attDef ident="type" mode="change">
+                     <valList mode="add" type="closed">
+                        <valItem ident="wikidata"/>
+                     </valList>
+                  </attDef>
+                  <attDef ident="type" mode="change">
+                     <valList mode="add" type="closed">
+                        <valItem ident="wikidata"/>
+                     </valList>
+                  </attDef>
+               </attList>
+            </elementSpec>
+            <!-- This is the first rule -->
+            <elementSpec ident="language" mode="change">
+               <desc>[Note Change!] Characterizes a single language or sublanguage used within a text. In this project, 
+                  all the samples are french texts. Consequently, the value of <gi>ident</gi> must be "fr".</desc>
+               <attList>
+                  <attDef ident="ident" mode="replace" usage="req">
+                     <valList type="closed">
+                        <valItem ident="fr"/> 
+                     </valList>
+                  </attDef>
+                  <attDef ident="usage" mode="delete"/>
+               </attList>
+               <exemplum>
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                     <profileDesc>
+                        <langUsage>
+                           <language ident="fr">français</language>
+                        </langUsage>
+                        <creation>
+                           <date>1671</date>
+                        </creation>
+                     </profileDesc>
+                  </egXML>
+               </exemplum>
+            </elementSpec>
+            <!--Checking module gaiji-->
+            <classRef key="att.gaijiProp"/>
+            <classSpec ident="att.gaijiProp" type="atts" mode="change">
+               <attList>
+                  <attDef ident="name" mode="delete"/>
+                  <attDef ident="value" mode="delete"/>
+                  <attDef ident="version" mode="delete"/>
+                  <attDef ident="scheme" mode="delete"/>
+               </attList>
+            </classSpec>
+            <!--Checking module verse-->
+            <!--Checking module transcr-->
+            <!--Checking module linking-->
+            <!--Checking module analysis-->
+            <classRef key="att.linguistic"/>
+            <classSpec ident="att.linguistic" type="atts" mode="change">
+               <attList>
+                  <attDef ident="lemma" mode="delete"/>
+                  <attDef ident="lemmaRef" mode="delete"/>
+                  <attDef ident="pos" mode="delete"/>
+                  <attDef ident="msd" mode="delete"/>
+                  <attDef ident="join" mode="delete"/>
+               </attList>
+            </classSpec>
+            <!--Checking module textstructure-->
+            <moduleRef key="textstructure" include="TEI text body div dateline opener closer"/>
+            <elementSpec ident="TEI" mode="change">
+               <attList>
+                  <attDef ident="version" mode="delete"/>
+                  <attDef ident="type" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <elementSpec ident="text" mode="change">
+               <attList>
+                  <attDef ident="type" mode="delete"/>
+               </attList>
+            </elementSpec>
+            <elementSpec ident="div" mode="change">
+               <attList>
+                  <attDef ident="type" mode="change">
+                     <valList mode="add" type="closed">
+                        <valItem ident="letter"/>
+                     </valList>
+                  </attDef>
+               </attList>
+            </elementSpec>
+            <!-- This is the second rule -->
+            <elementSpec ident="dateline" mode="replace" module="textstructure">
+               <desc>[Note Change!] Contains a description of the place, date or time of the publication of a letter. 
+                  In this project, <gi>dateline</gi> must contain a sequence of two children elements : <gi>name</gi> and <gi>date</gi>.
+                  The attribute <att>preserveOrder</att> of the element <gi>sequence</gi> is used because the two elements have to appear in the same order, 
+                  and aims at respecting precisely the structure of a letter.
+               </desc>
+               <content>
+                  <sequence preserveOrder="true"> 
+                     <elementRef key="name" minOccurs="1" maxOccurs="1"/>
+                     <elementRef key="date" minOccurs="1" maxOccurs="1"/>
+                  </sequence>
+               </content>
+               <exemplum>
+                  <egXML xmlns="http://www.tei-c.org/ns/Examples">
+                     <closer>
+                        <dateline>
+                           <name type="place">À Paris</name> <date>le 6 de la lune de Chalval, 1712.</date>
+                        </dateline>
+                  </closer>
+                  </egXML>
+               </exemplum>
+            </elementSpec>
+         </schemaSpec>
+      </body>
+   </text>
+</TEI>
