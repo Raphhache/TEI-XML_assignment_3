@@ -8,13 +8,15 @@ These samples are letters which come from three different epistolary works writt
 - Text 2 : Letter CLXXV of _Les Liaisons dangereuses_, written by Laclos in 1782. 
 - Text 3 : Letter CXXVIII,  _From Madame de Sévigné to the Count of Bussy Rabutin_, written by Madame de Sévigné in 1671. 
 
-I have chosen these texts because of my interest for this kind of literature, and for the historical era they come from. The project aims at clarifying and analyzing a very specific type of text, containing a lot of description, characters and places. 
+I have chosen these texts because of my interest for this kind of literature, and for the historical era they come from. 
 
 This repository contains : 
 
 - The three encoded letters (XML files)
-- PDF versions of the letters 
+- PDF versions of the letters
+- Reflexive note 
 - ODD customisation file 
-- RNG and HTML generated from the ODD 
+- "out" folder, containing the RNG generated from the ODD
+- HTML generated from the ODD
 
 No gen AI was used in this assignment. 
