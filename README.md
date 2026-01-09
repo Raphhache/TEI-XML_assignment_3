@@ -13,7 +13,7 @@ I have chosen these texts because of my interest for this kind of literature, an
 This repository contains : 
 
 - The three encoded letters (XML files)
-- PDF versions of the letters
+- "sources" folder, containing PDF versions of the letters
 - Reflexive note 
 - ODD customisation file 
 - "out" folder, containing the RNG generated from the ODD
